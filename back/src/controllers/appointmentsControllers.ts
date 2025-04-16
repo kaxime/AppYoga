@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { getAllAppointmentsService, postScheduleService, putCancelService } from "../server/appointmentsService";
+import { getAllAppointmentsService, getAppointmentsIdService, postScheduleService, putCancelService } from "../server/appointmentsService";
 
 
 export const getAllAppointments = async (req: Request, res:Response):Promise<void> => {
@@ -7,6 +7,13 @@ export const getAllAppointments = async (req: Request, res:Response):Promise<voi
     res.status(200).json(appointment);
 };
 
+export const getAppointmentsId = async (req:Request, res: Response):Promise<void> => {
+    const { id } = req.params
+    const elId = Number(id);
+    const result = await getAppointmentsIdService(elId)
+
+    res.status(200).json(result)
+};
 
 export const postSchedule = async (req: Request, res:Response):Promise<void> => {
     const schedule = await postScheduleService();

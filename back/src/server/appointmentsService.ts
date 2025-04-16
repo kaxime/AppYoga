@@ -1,7 +1,35 @@
-export const getAllAppointmentsService = async ():Promise<string> => {
+import { IAppointments } from "../interfaces/IUsers";
 
-    return await "Obtinen el listado de todos los turnos de todos los usuarios";
+const appointments:IAppointments[] = [
+    {
+    id: 1,
+    date: new Date("2025-04-15"),
+    time: "10",
+    userId: 1 ,
+    status: "active"
+    },
+    {
+    id: 2,
+    date: new Date("2025-04-16"),
+    time: "14",
+    userId: 2 ,
+    status: "cancelled"
+    }
+    ]
+
+
+export const getAllAppointmentsService = async ():Promise<IAppointments[]> => {
+
+    return await appointments;
 };
+
+export const getAppointmentsIdService = async (id: number): Promise<IAppointments> =>{
+    
+    const turn= appointments.find((turn) => turn.id === id)
+    if (!turn){return Promise.reject("turno no encontrado")}
+    
+    return await turn
+}
 
 export const postScheduleService = async ():Promise<string> => {
 
