@@ -1,4 +1,6 @@
-import { IUser, CreateUserDto, ICredentials, LoginDto } from "../interfaces/IUsers";
+import { IUser, ICredentials } from "../interfaces/IUsers";
+import {CreateUserDto}  from "../dto/CreateUserDto"
+import {LoginDto} from "../dto/LoginDto"
 import { createCredentialsService, loginCredentialsService} from"./credentialsService"
 
 export const users: IUser[] = [
@@ -43,13 +45,13 @@ export const getUsersIdService = async (id: number): Promise<IUser> =>{
 }
 
 export const postRegisterService = async (user: CreateUserDto): Promise<IUser> =>{
-     const { password, username } = user;
-     let id: number  = users.length + 1
+    const { password, username } = user;
+    let id: number  = users.length + 1
 
 
-     const newCredentials : number = await  createCredentialsService({
+    const newCredentials : number = await  createCredentialsService({
         password, username
-     })
+    })
 
 
     const newUser: IUser = {
@@ -64,13 +66,13 @@ export const postRegisterService = async (user: CreateUserDto): Promise<IUser> =
 
 export const postLoginService =  async (user: LoginDto): Promise<IUser> =>{
     const { username, password} = user;
+
     const credentialsId = await loginCredentialsService(username, password);
+    
     const foundUser = users.find((u) => u.credentials === credentialsId); 
     if (!foundUser) {
         return Promise.reject("Usuario no encontrado");
-      }
-      
-
+    }
 
     return await foundUser
 }

@@ -16,11 +16,19 @@ export const getAppointmentsId = async (req:Request, res: Response):Promise<void
 };
 
 export const postSchedule = async (req: Request, res:Response):Promise<void> => {
-    const schedule = await postScheduleService();
+    const turn = req.body
+    const schedule = await postScheduleService(turn);
     res.status(200).json(schedule);
 };
 
 export const putCancel = async (req: Request, res:Response):Promise<void> => {
-    const cancel = await putCancelService();
-    res.status(200).json(cancel);
+    try{
+        
+        const { id } = req.params
+        const elId = Number(id);
+        const cancel = await putCancelService(elId);
+        res.status(200).json({message:"cancelado con exito", status:cancel});
+    }catch (error){
+        res.status(400).json({message:String (error)})
+    }
 };

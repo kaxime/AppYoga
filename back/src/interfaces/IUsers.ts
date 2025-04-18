@@ -14,15 +14,6 @@ export interface ICredentials {
     username:string,
     password:string
 }
-export interface CreateUserDto{
-    name: string,
-    email:string,
-    birthdate:Date,
-    nDni:number,
-    username:string,
-    password:string
-}
-
 
 type Status = "active" | "cancelled"
 
@@ -33,7 +24,4 @@ export interface IAppointments{
     userId:number,
     status:Status
 }
-export interface LoginDto {
-    username: string;
-    password: string;
-  }
+
