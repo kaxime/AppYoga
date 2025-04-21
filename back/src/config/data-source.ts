@@ -1,5 +1,7 @@
 import { DataSource } from "typeorm"
 import { User } from "../entities/User"
+import { Credential } from "../entities/Credential"
+import { Appointment } from "../entities/Appointment"
 
 export const AppDataSource = new DataSource({
     type: "postgres",
@@ -10,7 +12,7 @@ export const AppDataSource = new DataSource({
     database: "pm3_proyect",
     synchronize: true,
     logging: true,
-    entities: [User],
+    entities: [User, Credential, Appointment],
     subscribers: [],
     migrations: [],
 })
