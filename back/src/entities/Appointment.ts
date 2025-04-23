@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn } from "typeorm"
+import { Entity, Column, PrimaryGeneratedColumn, ManyToMany, ManyToOne } from "typeorm"
+import { User } from "./User"
 
 export type Status = "active" | "cancelled"
 
@@ -10,22 +11,19 @@ export class Appointment {
     @PrimaryGeneratedColumn()
     id: number
 
-    @Column({length:100})
-    name: string
-
     @Column("date")
     date: Date
     
     @Column()
     time: string
-    
-    @Column()
-    userId: number
 
     @Column({
         type: "enum",
         enum:["active", "cancelled"],
         default:"active"
     })
-    status: Status
+    status: Status;
+
+    @ManyToOne(() => User, (user)=> user.appointments)
+    user: User; 
 }

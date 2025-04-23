@@ -1,9 +1,11 @@
 import { Request, Response } from "express";
 import { getAllAppointmentsService, getAppointmentsIdService, postScheduleService, putCancelService } from "../server/appointmentsService";
+import { Appointment } from "../entities/Appointment";
+import { TurnDto } from "../dto/AppointmentsDto";
 
 
 export const getAllAppointments = async (req: Request, res:Response):Promise<void> => {
-    const appointment = await getAllAppointmentsService();
+    const appointment: Appointment[] = await getAllAppointmentsService();
     res.status(200).json(appointment);
 };
 
@@ -16,7 +18,7 @@ export const getAppointmentsId = async (req:Request, res: Response):Promise<void
 };
 
 export const postSchedule = async (req: Request, res:Response):Promise<void> => {
-    const turn = req.body
+    const turn: TurnDto = req.body
     const schedule = await postScheduleService(turn);
     res.status(200).json(schedule);
 };

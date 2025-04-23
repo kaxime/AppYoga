@@ -1,26 +1,23 @@
-import { ICredentials } from "../interfaces/IUsers";
+import { Credential } from "../entities/Credential";
+import { CredentialModel } from "../config/data-source";
+import { LoginDto } from "../dto/LoginDto";
+import { User } from "../entities/User";
 
-export const credentialsArray: ICredentials[] =[
-    {
-      id: 1,
-      username: "maria90",
-      password: "clave123"
-    },
-]
-export const createCredentialsService = async (credentials: Omit<ICredentials,"id">): Promise <number> => {
-    const newCredentials: ICredentials = {
-        id: credentialsArray.length +1,
-        ...credentials
 
-    }
-    credentialsArray.push(newCredentials)
-    return await newCredentials.id;
+export const createCredentialsService = async (credentials: LoginDto): Promise <Credential> => {
+    const newCredentials:Credential = CredentialModel.create(credentials)
+    await CredentialModel.save(newCredentials);
+
+    return  newCredentials;
 };
 
-export const loginCredentialsService = async (username: string, password:string): Promise <number> => {
-    const credential = credentialsArray.find((c)=> c.username === username && c.password === password);
-    if (!credential) {
-        return Promise.reject("Credenciales incorrectas");
-      }
-      return credential.id;
+export const loginCredentialsService = async (credentials: LoginDto): Promise <Credential> => {
+
+    const {username, password} = credentials
+    const credential:Credential | null =await CredentialModel.findOneBy({username})
+
+    if(!credential) throw new Error ("credencial invalida")
+        if (credential.password !== password) throw new Error("credencial invalida")
+
+    return credential
 }

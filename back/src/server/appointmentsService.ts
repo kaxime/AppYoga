@@ -1,65 +1,49 @@
+import { resolveTripleslashReference } from "typescript";
 import {  TurnDto } from "../dto/AppointmentsDto";
 import { IAppointments } from "../interfaces/IUsers";
-import { users } from "./usersService";
+import { getUsersIdService } from "./usersService";
+import { AppointmentModel } from "../config/data-source";
+import { Appointment } from "../entities/Appointment";
+
 // import { AppointmentsDto } from "../dto/AppointmentsDto"
-const appointments:IAppointments[] = [
-    {
-    id: 1,
-    date: new Date("2025-04-15"),
-    time: "10",
-    userId: 1 ,
-    status: "active"
-    },
-    {
-    id: 2,
-    date: new Date("2025-04-16"),
-    time: "14",
-    userId: 2 ,
-    status: "cancelled"
-    }
-    ]
 
 
-export const getAllAppointmentsService = async ():Promise<IAppointments[]> => {
-
+export const getAllAppointmentsService = async ():Promise<Appointment[]> => {
+    const appointments = await AppointmentModel.find()
     return await appointments;
 };
 
-export const getAppointmentsIdService = async (id: number): Promise<IAppointments> =>{
+export const getAppointmentsIdService = async (id: number): Promise<Appointment | null> =>{
     
-    const turn = appointments.find((turn) => turn.id === id)
-    if (!turn){return Promise.reject("turno no encontrado")}
-    
-    return await turn
+    const turn = await AppointmentModel.findOneBy({id})
+    if(!turn){Promise.reject("Turno no encontrado")}
+    return  turn
 }
 
-export const postScheduleService = async (turnData: TurnDto):Promise<IAppointments> => {
-    const {date, time, userId} = turnData;
+export const postScheduleService = async (turnData: TurnDto):Promise<Appointment> => {
+    const {userId, ...rest} = turnData;
 
-    const userExists = users.find((user) => user.id === userId);
-    if(!userExists){ return Promise.reject("Usuario no encontrado. No se puede asignar el turno")}
+    const userExist = await getUsersIdService(userId)
+    if(!userExist){ return Promise.reject("Usuario no encontrado. No se puede asignar el turno")}
 
-    let newId = appointments.length + 1
-    const newTurn: IAppointments = {
-        id: newId,
-        date,
-        time,
-        userId, 
-        status:"active"
-    }
-    appointments.push(newTurn)
-    return newTurn;
+    let newAppointments: Appointment = AppointmentModel.create({
+        ...rest,
+        user: userExist
+    })
+    await AppointmentModel.save(newAppointments)
+    return newAppointments;
 };
 
 
-export const putCancelService = async (id:number):Promise<IAppointments> => {
+export const putCancelService = async (id:number):Promise<Appointment> => {
         
-    const turnCancel = appointments.find((turn) => turn.id === id)
-    if (!turnCancel){return Promise.reject("Id de turno no encontrado")}
+    const turnCancel: Appointment | null = await AppointmentModel.findOneBy({id: id});
+
+    if (!turnCancel){return Promise.reject("Id de turno no encontrado");}
 
     if (turnCancel.status === "cancelled") { return Promise.reject("El turno ya estaba cancelado");}
-    turnCancel.status = "cancelled"
-      
-
-     return turnCancel;
+    turnCancel.status = "cancelled";
+    
+    await AppointmentModel.save(turnCancel);
+    return turnCancel;
 };

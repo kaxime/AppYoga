@@ -8,10 +8,10 @@ export class Credential {
     @PrimaryGeneratedColumn()
     id: number
 
-    @Column({length:100})
+    @Column({nullable: false})
     username: string
 
-    @Column()
-    password: string
+    @Column({nullable: false})
+    password: string 
 
 }
