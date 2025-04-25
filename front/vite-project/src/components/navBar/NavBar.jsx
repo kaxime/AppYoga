@@ -3,17 +3,17 @@ import styles from "./NavBar.module.css"
 const NavBar = () => {
     return <>
         <nav className={styles.nav}>
+            <div className={styles.nav_text}><strong>Yoga App</strong></div>
 
-            <ul>
-                <li>inicio</li>
-                <li>servicios</li>
-                <li>nosotros</li>
-
+            <ul className={styles.nav_ul}>
+                <li className={styles.nav_items}>inicio</li>
+                <li className={styles.nav_items}>servicios</li>
+                <li className={styles.nav_items}>nosotros</li>
+                
             </ul>
 
 
         </nav>
-        <h1> esta es mi navbar</h1>
     </>
 }
 export default NavBar;
