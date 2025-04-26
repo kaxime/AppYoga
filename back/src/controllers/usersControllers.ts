@@ -19,7 +19,7 @@ export const getUsersId = async (req:Request, res: Response): Promise<void> => {
 
     res.status(200).json(user)
     } catch(e){
-    res.status(404).json({message:" no se encontro el id" })
+    res.status(404).json({message:"no se encontro el id" })
     }
 };
 
@@ -36,7 +36,7 @@ export const postLoginUser = async (req: Request, res: Response) : Promise<void>
         const credentials: LoginDto = req.body;
       // Validamos que lleguen los datos
         if (!credentials) {
-        res.status(400).json({ message: "Faltan datos de login" });
+        res.status(400).json({ message: "Faltan datos en el login" });
         return;
     }
 

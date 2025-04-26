@@ -4,7 +4,7 @@ import { getAllAppointments, getAppointmentsId, postSchedule, putCancel } from "
 const appointmentsRouter:Router = Router()
 
 appointmentsRouter.get("/appointments", getAllAppointments);
-appointmentsRouter.get("/appointments/:id",getAppointmentsId);
+appointmentsRouter.get("/appointment/:id",getAppointmentsId);
 
 appointmentsRouter.post("/appointments/schedule", postSchedule);
 

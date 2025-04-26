@@ -1,12 +1,18 @@
-import misTurnos from "../../helpers/myAppoitments";
-import { useState } from 'react';
+
+import { useEffect, useState } from 'react';
 import Turno from "../../components/Turnos/Turno";
+import axios from "axios"
 
 const MisTurnos = ( )=>{
 
-    const [turno] = useState(misTurnos)
-    console.log(turno);
+    const [turno, setTurnos] = useState([])
+    console.log([]);
     
+    useEffect(() => {
+        axios.get("http://localhost:3000/appointments")
+        // .then((response) =>response.json())
+        .then((res) => setTurnos(res.data))
+    },[]);
 
     return (
         <>

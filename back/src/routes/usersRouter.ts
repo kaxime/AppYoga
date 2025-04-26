@@ -5,7 +5,7 @@ const usersRouter:Router = Router()
 
 usersRouter.get("/users", getAllUsers );
 
-usersRouter.get("/users/:id", getUsersId);
+usersRouter.get("/user/:id", getUsersId);
 
 usersRouter.post("/users/register", postRegisterUser);
 
