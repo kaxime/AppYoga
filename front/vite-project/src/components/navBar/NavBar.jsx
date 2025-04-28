@@ -9,9 +9,12 @@ const NavBar = () => {
                 <li className={styles.nav_items}>inicio</li>
                 <li className={styles.nav_items}>servicios</li>
                 <li className={styles.nav_items}>nosotros</li>
-                
+                <li className={styles.logout}>Cerrar Sesión</li>
             </ul>
 
+            {/* <ul className={styles.nav_ul}>
+                <li className={styles.logout}>Cerrar Sesión</li>
+            </ul> */}
 
         </nav>
     </>

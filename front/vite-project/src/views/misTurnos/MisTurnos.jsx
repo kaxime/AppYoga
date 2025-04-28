@@ -5,13 +5,14 @@ import axios from "axios"
 
 const MisTurnos = ( )=>{
 
-    const [turno, setTurnos] = useState([])
-    console.log([]);
+    const [turno, setTurno] = useState([])
+    console.log(turno);
     
     useEffect(() => {
-        axios.get("http://localhost:3000/appointments")
-        // .then((response) =>response.json())
-        .then((res) => setTurnos(res.data))
+        axios
+        .get("http://localhost:3000/appointments")
+        .then((res) => setTurno(res.data))
+        .catch((error) =>alert(error));
     },[]);
 
     return (
