@@ -1,10 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
-// import { validate } from "../../helpers/validateRegister";
+import { validate } from "../../helpers/validateRegister";
 import './Register.css'
-
-
-
 
 const Register  = () =>{
 
@@ -16,38 +13,40 @@ const Register  = () =>{
         username:"",
         password:"",
     })
-    console.log(form);
-    
-    // const [error, setError] = useState({});
-    // console.log(error)
 
-    const handleOnChange = (event)=> {
+    const [errors, setErrors] = useState({
+        name:"",
+        email:"",
+        birthdate:"",
+        nDni:"",
+        username:"",
+        password:"",
+    });
+    console.log(errors)
+
+    const handleOnChange = (event)=> { 
         console.log(event);
-        const {name, value} =  event.target;
         setForm({
-            ...form,
-            [name]:value
+            ...form, [event.target.name]: event.target.value
         })
-
-
+        setErrors(validate({ ...form, [event.target.name]: event.target.value}))
     }
 
-    const handleOnSubmit = (event)=> {
+    const handleOnSubmit = async (event)=> {
         event.preventDefault();
-        funcionPeticion()
-    }
+        if(Object.keys(errors).length){
+            alert("Por favor rellenar bien el formulario")
+        }else{
+            try {
+                await axios.post("http://localhost:3000/users/register", form)
+                alert("Registro exitoso");
+                
+            } catch (error) {
+                alert("El registro fallo, intentalo de nuevo", error)
+            } 
+        }
+    };
 
-    const funcionPeticion =  () => {
-        axios.post("", form)
-        // .then((res) => {
-        //     console.log("usuario registrado", res.data)
-        //     alert("Registro exitoso! 🎉")
-        // })
-        // .catch((error) => {
-        //     console.error("error al registrarse" ,error)
-        //     setError("Error en el registro, intenta nuevamente. ")
-        // })
-    }
 
     return (
         <div className="container">
@@ -57,68 +56,69 @@ const Register  = () =>{
             <div>
                 <label >Name:</label>
                 <input type="text"
-                    value={form.name} 
-                    name="name"
                     onChange={handleOnChange}
-                    // className={error ? 'error' : ''}
+                    name="name"
+                    value={form.name} 
+                    
                 />
-               
             </div>
+            {errors.name && <span>{errors.name}</span>}
+
             <div>
                 <label>Email:</label>
                 <input type="text"
-                    value={form.email} 
-                    name="email"
-                    placeholder="example@gmail.com"
                     onChange={handleOnChange}
-                    // className={error ? 'error' : ''}
+                    name="email"
+                    value={form.email} 
+                    placeholder="example@gmail.com"
+                    
                     />
             </div>
+            {errors.email && <span>{errors.email}</span>}
 
             <div>
                 <label>Birthdate:</label>
                 <input type="date" 
-                    value={form.birthdate}
-                    name="birthdate"
                     onChange={handleOnChange}
+                    name="birthdate"
+                    value={form.birthdate}
                     />
             </div> 
+            {errors.birthdate && <span>{errors.birthdate}</span>}
 
             <div>
                 <label>Dni:</label>
-                <input type="number" 
-                    value={form.nDni}
-                    name="nDni"
+                <input type="text" 
                     onChange={handleOnChange}
-                    // className={error ? 'error' : ''}
+                    name="nDni"
+                    value={form.nDni}
                     />
             </div>
+            {errors.nDni && <span>{errors.nDni}</span>}
 
             <div>
                 <label >Username: </label>
                 <input type="text"
-                    value={form.username}
-                    name="username"
-                    placeholder="lolita123"
                     onChange={handleOnChange}
-                    // className={error ? 'error' : ''}
+                    name="username"
+                    value={form.username}
+                    placeholder="lolita123"
                     /> 
             </div>
-            
+            {errors.username && <span>{errors.username}</span>}
+
+
             <div>
             <label >Password: </label>
             <input type="password" 
-                value={form.password}
-                name="password"
-                placeholder="******"
                 onChange={handleOnChange}
-                // className={error ? 'error' : ''}
+                name="password"
+                value={form.password}
+                placeholder="******"
+                required
                 />
             </div>
-           
-            {/* {error.general && <p>{error.general}</p>} */}
-
-
+            {errors.password && <span>{errors.password}</span>}
 
             <button >Submit</button>
         </form>

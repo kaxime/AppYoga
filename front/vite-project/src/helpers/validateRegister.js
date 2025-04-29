@@ -1,15 +1,36 @@
 export const validate = (input) =>{
-    const errors = {};
-    const emailRegex = /^.+@.+\..+$/;
-    if (!input.name || !input.email || !input.username || !input.password) {return ("Por favor completa todos los campos." );}
+    const error = {};
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*?&]{6,}$/;
+    const gmailRegex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
     
-    if (!input.name) errors.name = "El nombre es obligatorio.";
-    if (!input.email) errors.email = "El email es obligatorio.";
-    else if (!emailRegex.test(input.email)) errors.email = "El email no es válido.";
+    if (!input.nDni.trim()) {
+        error.nDni = "El DNI es obligatorio";
+    }else if (!/^\d{7,8}$/.test(input.nDni)) { 
+        error.nDni = "El DNI debe tener entre 7 y 8 números";
+        }
+          
+
+        if (!input.name.trim()) {
+            error.name = "El nombre es obligatorio";
+          }
+          if (!input.birthdate) {
+            error.birthdate = "La fecha de nacimiento es obligatoria";
+          }
+
+    if (!input.email.trim()) error.email = "El email es obligatorio.";
+    else if (!gmailRegex.test(input.email)) error.email = "Solo se permite un correo de Gmail válido"
+
+    if (!input.password){ 
+        error.password = "La contraseña es obligatoria.";
+    } else if(!passwordRegex.test(input.password)) {
+        error.password="La contraseña debe tener al menos 6 caracteres, una letra y un número"
+    }
     
-    if (!input.password) errors.password = "La contraseña es obligatoria.";
-    else if (input.password.length < 6) errors.password = "La contraseña debe tener al menos 6 caracteres.";
     
-    if (!input.username) errors.username = "El nombre de usuario es obligatorio.";
-    return errors;
+    if (!input.username){
+        error.username = "El nombre de usuario es obligatorio.";
+    }else if(input.username.length < 5) {
+        error.username = "El nombre de usuario debe tener al menos 5 caracteres."
+    }
+    return error;
 }
