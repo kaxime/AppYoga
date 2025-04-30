@@ -1,0 +1,25 @@
+.mis-turnos-container {
+    padding: 40px;
+    background-color: #f0f2f5;
+    min-height: 100vh;
+}
+
+.mis-turnos-title {
+    font-size: 2rem;
+    margin-bottom: 30px;
+    color: #333;
+    text-align: center;
+}
+
+.turnos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    justify-items: center;
+}
+
+.sin-turnos {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #666;
+}

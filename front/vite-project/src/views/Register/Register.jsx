@@ -31,6 +31,25 @@ const Register  = () =>{
         })
         setErrors(validate({ ...form, [event.target.name]: event.target.value}))
     }
+    const resetFormAndErrors = () => {
+        // Limpiar formulario y errores en una sola función
+        setForm({
+            name: "",
+            email: "",
+            birthdate: "",
+            nDni: "",
+            username: "",
+            password: "",
+        });
+        setErrors({
+            name: "",
+            email: "",
+            birthdate: "",
+            nDni: "",
+            username: "",
+            password: "",
+        });
+    };
 
     const handleOnSubmit = async (event)=> {
         event.preventDefault();
@@ -39,8 +58,8 @@ const Register  = () =>{
         }else{
             try {
                 await axios.post("http://localhost:3000/users/register", form)
-                alert("Registro exitoso");
-                
+                alert("Registro exitoso 🎉✨");
+                resetFormAndErrors()
             } catch (error) {
                 alert("El registro fallo, intentalo de nuevo", error)
             } 

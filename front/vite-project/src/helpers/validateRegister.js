@@ -2,6 +2,8 @@ export const validate = (input) =>{
     const error = {};
     const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*?&]{6,}$/;
     const gmailRegex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+    const nameRegex = /^\s*[A-Za-zÁÉÍÓÚáéíóúÑñ]{3,}( [A-Za-zÁÉÍÓÚáéíóúÑñ]+)*\s*$/;
+
     
     if (!input.nDni.trim()) {
         error.nDni = "El DNI es obligatorio";
@@ -12,13 +14,18 @@ export const validate = (input) =>{
 
         if (!input.name.trim()) {
             error.name = "El nombre es obligatorio";
+          }else if (!nameRegex.test(input.name)){ error.name = "Por favor, ingresá un nombre válido: debe contener al menos 3 letras y utilizar únicamente letras, sin números ni símbolos."
+            
           }
+
           if (!input.birthdate) {
             error.birthdate = "La fecha de nacimiento es obligatoria";
           }
 
     if (!input.email.trim()) error.email = "El email es obligatorio.";
-    else if (!gmailRegex.test(input.email)) error.email = "Solo se permite un correo de Gmail válido"
+    else if (!gmailRegex.test(input.email)){ 
+        error.email = "Solo se permite un correo de Gmail válido"
+    }
 
     if (!input.password){ 
         error.password = "La contraseña es obligatoria.";

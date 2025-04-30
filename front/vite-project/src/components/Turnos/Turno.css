@@ -1,0 +1,56 @@
+.turno-container {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 10px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 300px;
+    text-align: left;
+}
+
+.turno-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.turno-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.turno-info {
+    font-size: 1rem;
+    margin: 5px 0;
+}
+
+.turno-status {
+    font-size: 1rem;
+    margin: 10px 0;
+    font-weight: bold;
+}
+
+.turno-status.activo {
+    color: #28a745; /* Green */
+}
+
+.turno-status.cancelado {
+    color: #dc3545; /* Red */
+}
+
+.turno-btn {
+    padding: 8px 16px;
+    background-color: #da348f;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+}
+
+.turno-btn:hover {
+    background-color: #a80a39;
+}
