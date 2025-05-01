@@ -14,7 +14,7 @@ const NavBar = () => {
     };
            return (
         <nav className={styles.nav}>
-            <div className={styles.nav_text}><strong>Yoga App</strong></div>
+            <div className={styles.nav_text}><strong>YogApp</strong></div>
 
             <ul className={styles.nav_ul}>
                 <li className={styles.nav_items}><Link to="/">Inicio</Link></li>
@@ -25,7 +25,10 @@ const NavBar = () => {
                     </>
                 )}
                 {user && (
+                    <>
                     <li className={styles.nav_items}><Link to="/turnos">Turnos</Link></li>
+                    <li className={styles.nav_items}><Link to="/yoga">YogaSecrets</Link></li>
+                    </>
                 )}
             </ul>
 

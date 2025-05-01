@@ -11,7 +11,7 @@ const MisTurnos = () => {
     const navigate = useNavigate()
 
     useEffect ( () =>{
-        if(user == 0 ){
+        if(user == null ){
             navigate("/login")
         }else {
             getAppointments()
@@ -31,7 +31,11 @@ const MisTurnos = () => {
                 )}
             </div>
             <div>
-                <button><Link to="/crearTurnos">Crear turnos </Link></button>
+                <Link to="/crearTurnos">
+                <button>
+                Crear turnos 
+                </button>
+                </Link>
             </div>
         </div>
     );

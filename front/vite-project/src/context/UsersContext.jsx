@@ -18,7 +18,7 @@ export const UserContext = createContext({
 
 export const UserProvider = ({children}) => {
 
-    const  [user, setUser] = useState(0)
+    const  [user, setUser] = useState(null)
     const [userAppointments, setAppointments] = useState([])
     const [isLogged, setIsLogged] = useState(false)
 
@@ -64,13 +64,13 @@ export const UserProvider = ({children}) => {
             try {
                 const dataToSend = {
                     ...appointmentData,
-                    userId: user.id // ✅ Usamos el user real guardado en contexto
+                    userId: user.id 
                 };
                 const response = await axios.post(
                     "http://localhost:3000/appointments/schedule",
                     dataToSend
                 );
-                await getAppointments(); // Ya usa el user del contexto
+                await getAppointments(); 
                 return response;
             } catch (error) {
                 console.log(error);
@@ -81,7 +81,9 @@ export const UserProvider = ({children}) => {
     const cancelAppointment = async (id) => {
         try {
             await axios.put(`http://localhost:3000/appointments/cancel/${id}`)
-            if (user) await getAppointments(user);
+            if (user) {
+                await getAppointments(user);
+            }
         } catch (error) {
             console.error("Error al cancelar el turno:", error);
             alert("No se pudo cancelar la cita.");

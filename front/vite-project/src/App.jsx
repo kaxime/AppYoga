@@ -7,6 +7,7 @@ import Register from './views/Register/Register';
 import Login from './views/Login/Login';
 import { Routes, Route } from 'react-router-dom';
 import CreateTurn from './views/CreateTurn/CreateTurn';
+import YogaSecrets from './components/yoga/YogaSecrets';
 
 
 
@@ -22,6 +23,7 @@ function App() {
       <Route path="/register"  element={<Register/>}  />
       <Route path="/turnos" element={ <MisTurnos/>}  />
       <Route path='/crearTurnos' element= {<CreateTurn/>}/>
+      <Route path="/yoga" element={ <YogaSecrets/>}  />
       <Route path="*" element={<ErrorPage/>}  />
     </Routes>
     </>

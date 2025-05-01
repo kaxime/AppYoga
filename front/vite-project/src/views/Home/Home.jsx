@@ -1,13 +1,14 @@
+import { Link } from "react-router-dom";
 import './Home.css'
 const Home = ( ) =>{
     return ( 
         <main className="home-container">
-            <h1 className="home-title">🧘‍♀️ Bienvenido a <span className="highlight">YogaFlow</span></h1>
+            <h1 className="home-title">🧘‍♀️ Bienvenido a <span className="highlight">YogApp</span></h1>
             <p className="home-subtitle">Encuentra tu equilibrio, conecta contigo.</p>
 
             <section className="home-section">
                 <p>
-                En <strong>YogaFlow</strong> creemos que el bienestar empieza con pequeños pasos.
+                En <strong>YogApp</strong> creemos que el bienestar empieza con pequeños pasos.
                 <br />
                 Reserva tu turno, practica con nosotros y siente el cambio.
                 </p>
@@ -31,9 +32,10 @@ const Home = ( ) =>{
 
             <section className="home-section">
                 <h2 className="home-section-title">¿Listo para comenzar tu viaje de bienestar?</h2>
-                <button className="home-button">
-                Regístrate ahora
+                <Link to="/register">
+                <button className="home-button">Registrate ahora
                 </button>
+                </Link>
             </section>
         </main>
   );

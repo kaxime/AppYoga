@@ -7,7 +7,7 @@ const ErrorPage = () => {
       <h1>Ups... Respirá hondo 🧘‍♀️</h1>
       <p>La ruta que buscás se fue a meditar entre montañas y no volvió aún.</p>
       <p>Quizás quieras volver al presente...</p>
-      <Link to="/home" className="back-home-link">
+      <Link to="/" className="back-home-link">
       <strong>Ir al inicio</strong>
       </Link>
     </div>
