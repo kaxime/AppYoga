@@ -5,6 +5,7 @@ import './App.css'
 import Register from './views/Register/Register';
 import Login from './views/Login/Login';
 import { Routes, Route } from 'react-router-dom';
+import CreateTurn from './views/CreateTurn/CreateTurn';
 
 
 function App() {
@@ -17,7 +18,8 @@ function App() {
       <Route path="/home"element={ <Home/> } />
       <Route path="/login" element={<Login/>} />
       <Route path="/register"  element={<Register/>}  />
-      <Route path="/turnos" element={ <MisTurnos/>}  />
+      <Route path="/turnos/:id" element={ <MisTurnos/>}  />
+      <Route path="*" element={""}  />
     </Routes>
     </>
   )

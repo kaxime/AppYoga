@@ -1,9 +1,13 @@
-import axios from "axios";
+
 import { useState } from "react";
 import { validate } from "../../helpers/validateRegister";
 import './Register.css'
+import { UserContext } from "../../context/UsersContext";
+import { useContext } from "react";
 
 const Register  = () =>{
+
+    const {registerUser} = useContext(UserContext)
 
     const [form, setForm] = useState({
         name:"",
@@ -32,7 +36,7 @@ const Register  = () =>{
         setErrors(validate({ ...form, [event.target.name]: event.target.value}))
     }
     const resetFormAndErrors = () => {
-        // Limpiar formulario y errores en una sola función
+        
         setForm({
             name: "",
             email: "",
@@ -57,7 +61,7 @@ const Register  = () =>{
             alert("Por favor rellenar bien el formulario")
         }else{
             try {
-                await axios.post("http://localhost:3000/users/register", form)
+                registerUser(form)
                 alert("Registro exitoso 🎉✨");
                 resetFormAndErrors()
             } catch (error) {

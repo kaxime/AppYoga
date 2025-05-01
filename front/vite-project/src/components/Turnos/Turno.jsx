@@ -9,7 +9,7 @@ const Turno = ({ turno: { time, date, status } }) => {
             <div className="turno-details">
                 <p className="turno-info"><strong>Fecha:</strong> {date}</p>
                 <p className="turno-info"><strong>Hora:</strong> {time}</p>
-                <p className={`turno-status ${status.toLowerCase()}`}>Estado: {status}</p>
+                <p className="turno-status ">Estado: {status}</p>
                 <button className="turno-btn">Cancelar</button>
             </div>
         </div>
