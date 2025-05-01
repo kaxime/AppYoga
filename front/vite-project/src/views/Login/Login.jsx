@@ -4,14 +4,14 @@ import { useContext, useState } from 'react';
 import './Login.css';
 import { validateLogin } from "../../helpers/validateLogin";
 import { UserContext } from "../../context/UsersContext";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom'
 
 const Login = () =>{
 
+     const  {loginUser } = useContext(UserContext)
+
     const navigate = useNavigate();
-
-     const  {loginUser} = useContext(UserContext)
-
+    
       const [login, setLogin] = useState({
             username:"",
             password:""
@@ -35,17 +35,15 @@ const Login = () =>{
             if(Object.keys(errors).length){
                 alert("Por favor rellenar bien el Login")
             }else{
-                try {
-                    const {data} = await loginUser(login)
-                    alert("Login exitoso");
-                    navigate(`/turnos/${data.user.id}`);
-
-                } catch (error) {
-                    alert("El login fallo, intentalo de nuevo", error)
-                } 
-            }
+                await loginUser(login)
+                navigate(`/turnos`)
+            }       
         };
 
+        // useEffect(()=>{
+        //     if(user?.id){
+        //     }
+        // },[user, navigate ])
 
 
 

@@ -1,18 +1,20 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import './CreateTurn.css'
 import { validateCreateTurn } from '../../helpers/validateCreateTurn';
+import { UserContext } from '../../context/UsersContext';
 
-const CreateTurn = ({user}) => {
+const CreateTurn = () => {
+
+    const {createAppointment} = useContext(UserContext)
 
     const [formTurn, setFormTurn] = useState({
-        userId:user,
         date: "",
 		time: ""
     })
 
     const [errors, setErrors] = useState({
-        username:"",
-        password:"",
+        date:"",
+        time:"",
     });
 
     const handleOnChange = (event)=> { 
@@ -22,7 +24,7 @@ const CreateTurn = ({user}) => {
                 })
                 setErrors(validateCreateTurn({ ...formTurn, [event.target.name]: event.target.value}))
             }
-
+    
 
     const handleOnSubmit = async (event)=> {
         event.preventDefault();
@@ -32,12 +34,18 @@ const CreateTurn = ({user}) => {
         return;
     }
 
-    console.log("Cita enviada:", formTurn);
-    alert("¡Cita agendada con éxito!");
+    try {
+        await createAppointment(formTurn); // ¡Conexión mágica!
+        console.log(formTurn);
+        alert("¡Cita agendada con éxito!");
 
-    setFormTurn({ date: '', time: '' });
-    setErrors({});
-    };
+        // Limpiar el formulario después de agendar
+        setFormTurn({ date: '', time: '' });
+        setErrors({});
+    } catch (error) {
+        // Esto se maneja ya en createAppointment (alert incluido), pero puedes agregar algo aquí si querés
+        console.error("Error al agendar:", error);
+    }}
 
     return (
         <div className="form-turn-container">
